@@ -1,0 +1,16 @@
+.Signoff {
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #e6e6e6;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  margin: 8px 0px;
+  padding: 4px 8px;
+  text-align: left;
+}
+
+.signoff-time {
+  color: #c4c4c4;
+  font-size: 12px;
+}
