@@ -1,0 +1,52 @@
+.discussion {
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.reply {
+  margin: 16px;
+  margin-left: 32px;
+  padding-left: 8px;
+  border-left: 1px solid #e6e6e6;
+}
+
+.reply-box-div {
+  margin-left: 32px;
+}
+
+.reply-box {
+  border-radius: 8px;
+  display: block;
+  width: 100%;
+}
+
+.submit-button {
+  background-color: darkblue;
+  border-radius: 4px;
+  color: white;
+  display: block;
+  outline: none;
+  border: none;
+  padding: 4px 8px;
+  float: right;
+  margin-top: 4px;
+}
+
+.reply-button {
+  font-size: 12px;
+  color: darkblue;
+}
+
+.reply img {
+  height: 16px;
+}
+
+.author-header {
+  display: flex;
+}
+
+.author-name {
+  font-weight: 700;
+  margin-left: 4px;
+}

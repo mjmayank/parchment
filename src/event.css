@@ -1,0 +1,20 @@
+.event-container {
+  align-items: center;
+  display: flex;
+  margin-bottom: -16px;
+  margin-top: 32px;
+}
+
+.event-container img {
+  margin-right: 4px;
+  height: 12px;
+}
+
+.event {
+  font-size: 12px;
+}
+
+.join-meeting-button {
+  font-size: 12px;
+  margin-left: 4px;
+}

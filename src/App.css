@@ -1,5 +1,11 @@
 .App {
+  
+}
+
+.doc-container {
   padding: 16px 64px;
+  max-width: 640px;
+  margin: auto;
 }
 
 .App-logo {
@@ -11,6 +17,12 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.fake-input, .fake-input:focus {
+  border: white;
+  background-color: white;
+  outline: none;
 }
 
 .App-header {
@@ -39,4 +51,14 @@
 
 p {
   margin-bottom: .5em;
+}
+
+button {
+  background-color: #fff;
+  outline: none;
+  border: none;
+}
+
+.doc-block {
+  outline: none;
 }

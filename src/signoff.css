@@ -6,11 +6,20 @@
   display: inline-block;
   font-size: 14px;
   margin: 8px 0px;
-  padding: 4px 8px;
+  padding: 8px 8px;
   text-align: left;
+}
+
+.Signoff img {
+  height: 16px;
+  margin-right: 2px;
 }
 
 .signoff-time {
   color: #c4c4c4;
   font-size: 12px;
+}
+
+.signoff-name-container {
+  display: flex;
 }
