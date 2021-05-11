@@ -12,6 +12,10 @@
   height: 16px;
 }
 
+img.emoji-icon {
+  padding: 2px;
+}
+
 .emoji-count {
   margin-left: 4px;
 }

@@ -1,4 +1,5 @@
 import './emoji.css';
+import AddReaction from './add-reaction.png';
 import Avatar1 from './Slice_1.png';
 import Avatar2 from './Slice_2.png';
 import Avatar3 from './Slice_3.png';
@@ -22,7 +23,10 @@ function Emoji(props) {
   }
   return (
     <button className="Emoji" onClick={ () => setCount(count + 1) }>
-      <span className="emoji-icon">{props.emoji}</span>
+      { count > 0
+        ? <span className="emoji-icon">{props.emoji}</span>
+        : <img className="emoji-icon" src={AddReaction} />
+      }
       { avatars }
     </button>
   );
