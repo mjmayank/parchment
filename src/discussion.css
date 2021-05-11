@@ -1,14 +1,16 @@
 .discussion {
-  border: 1px solid #e6e6e6;
-  border-radius: 8px;
-  padding: 8px;
+
 }
 
 .reply {
   margin: 16px;
   margin-left: 32px;
   padding-left: 8px;
-  border-left: 1px solid #e6e6e6;
+}
+
+.reply-flex {
+  display: flex;
+  align-items: center;
 }
 
 .reply-box-div {
@@ -34,19 +36,29 @@
 }
 
 .reply-button {
+  cursor: pointer;
   font-size: 12px;
   color: darkblue;
 }
 
 .reply img {
   height: 16px;
+  border-radius: 16px;
 }
 
 .author-header {
   display: flex;
+  padding: 0px 4px;
+  border-right: 1px solid #e6e6e6;
+  margin-right: 8px;
+  align-items: center;
 }
 
 .author-name {
   font-weight: 700;
   margin-left: 4px;
+}
+
+.reply-input {
+  flex: 1 0 100%;
 }

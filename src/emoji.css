@@ -31,4 +31,6 @@
 
 .checkbox-text {
   margin-left: 4px;
+  min-width: 4px;
+  display: inline-block;
 }
