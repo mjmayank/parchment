@@ -262,6 +262,24 @@ function App() {
         ])
         setInputValue('')
       }
+      if (inputValue.includes('/h1')) {
+        setDocument([
+          ...document, {
+            text: inputValue.substring(inputValue.indexOf("/h1 ") + "/h1 ".length),
+            type: "h1",
+          }
+        ])
+        setInputValue('')
+      }
+      if (inputValue.includes('/h2')) {
+        setDocument([
+          ...document, {
+            text: inputValue.substring(inputValue.indexOf("/h2 ") + "/h2 ".length),
+            type: "h2",
+          }
+        ])
+        setInputValue('')
+      }
     }
   }
 
