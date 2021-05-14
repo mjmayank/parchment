@@ -1,12 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
-import Emoji from './Emoji.js';
-import Signoff from './Signoff.js';
 import Header from './header.js';
-import Check from './Checkbox.js';
-import Discussion from './Discussion.js';
-import Assigned from './assigned.js';
-import Event from './Event.js';
+import ComponentPicker from './ComponentPicker';
+import { useState } from 'react';
 
 // const document_data = [
 //   { 
@@ -98,16 +93,21 @@ const document_data = [
     type: "h2",
   },
   {
-    text: "Roadmap Study Hall - 15 minutes",
-    type: "p",
-  },
-  {
-    text: "Roadmap Discussion - 20 minutes",
-    type: "p",
-  },
-  {
-    text: "Backlog Review - 20 minutes",
-    type: "p",
+    type: 'agenda',
+    data: [
+      {
+        text: "Roadmap Study Hall - 15 minutes",
+        type: "p",
+      },
+      {
+        text: "Roadmap Discussion - 20 minutes",
+        type: "p",
+      },
+      {
+        text: "Backlog Review - 20 minutes",
+        type: "p",
+      }
+    ]
   },
   {
     text: "Follow Ups",
@@ -208,44 +208,81 @@ const document_data = [
 ]
 
 function App() {
+  const [document, setDocument] = useState(document_data);
+  const [inputValue, setInputValue] = useState('');
+
+  const updateDocument = value => {
+    if (value === '/check') {
+      setDocument([...document, {
+        text: "",
+        type: "check"
+      }]);
+      setInputValue('')
+    } else {
+      setInputValue(value)
+    }
+  }
+
+  const onEnterPressed = key => {
+    if (key === 'Enter') {
+      if (inputValue.includes('/request')) {
+        setDocument([
+          ...document, {
+            text: inputValue.substring(inputValue.indexOf("/request ") + "/request ".length),
+            type: "request"
+          }
+        ])
+        setInputValue('')
+      }
+      if (inputValue.includes('/signoff')) {
+        setDocument([
+          ...document, {
+            text: inputValue.substring(inputValue.indexOf("/signoff ") + "/signoff ".length),
+            type: "signoff"
+          }
+        ])
+        setInputValue('')
+      }
+      if (inputValue.includes('/discussion')) {
+        setDocument([
+          ...document, {
+            text: inputValue.substring(inputValue.indexOf("/discussion ") + "/discussion ".length),
+            type: "discussion"
+          }
+        ])
+        setInputValue('')
+      }
+      if (inputValue.includes('/emoji')) {
+        setDocument([
+          ...document, {
+            text: inputValue.substring(inputValue.indexOf("/emoji ") + "/emoji ".length) || "👍",
+            type: "emoji",
+            data: 0,
+          }
+        ])
+        setInputValue('')
+      }
+    }
+  }
+
   return (
     <div className="App">
       <Header/>
       <div className="doc-container">
         {
-          document_data.map(line => {
-            console.log(line);
-            return display(line)
+          document.map(line => {
+            return <ComponentPicker line={line}/>
           })
         }
-        <input className="fake-input"/>
+        <input
+          value={ inputValue }
+          className="fake-input"
+          onChange={ e => updateDocument(e.target.value) }
+          onKeyUp={ e => onEnterPressed(e.key) }
+        />
       </div>
     </div>
   );
-}
-
-const display = (line) => {
-  if(line.type === 'h1') {
-    return (<div><h1 className="doc-block" contentEditable={true} key={line.text}>{ line.text }</h1></div>)
-  } else if(line.type === 'h2') {
-    return (<div><h2 className="doc-block" contentEditable={true} key={line.text}>{ line.text }</h2></div>)
-  } else if (line.type === 'emoji') {
-    return (<Emoji emoji={line.text} count={line.data}/>)
-  } else if (line.type === "check") {
-    return (<Check text={line.text}/>)
-  } else if (line.type === "signoff") {
-    return (<Signoff signerName={line.text}/>)
-  } else if (line.type === "request") {
-    return (<Assigned from={line.text}/>)
-  } else if (line.type === "discussion") {
-    return (<Discussion text={line.text}/>)
-  } else if (line.type === "event") {
-    return (<Event text={line.text}/>)
-  } else {
-    return (
-      <p className="doc-block" contentEditable={true} key={line.text}>{ line.text }</p>
-    )
-  }
 }
 
 export default App;

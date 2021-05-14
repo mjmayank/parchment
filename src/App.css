@@ -23,6 +23,7 @@
   border: white;
   background-color: white;
   outline: none;
+  width: 100%;
 }
 
 .App-header {
@@ -62,4 +63,15 @@ button {
 .doc-block {
   outline: none;
   border: none;
+}
+
+.clock-container {
+  padding: 4px;
+}
+
+.clock-digit {
+  display: inline-block;
+  padding: 8px;
+  background-color: white;
+  border: 1px solid #282c34;
 }

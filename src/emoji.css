@@ -24,6 +24,7 @@ img.emoji-icon {
   border: 1px solid #e6e6e6;
   background-color: white;
   border-radius: 4px;
+  cursor: pointer;
   height: 16px;
   width: 16px;
 }

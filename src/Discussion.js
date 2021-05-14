@@ -17,7 +17,7 @@ function Emoji(props) {
               <img src={ Avatar1 } />
               <div className="author-name">Mayank</div>
             </div>
-            <input contentEditable autoFocus className="doc-block reply-input"/>
+            <input autoFocus className="doc-block reply-input"/>
           </div>
           <a href="#" className="reply-button">Reply</a>
         </div>

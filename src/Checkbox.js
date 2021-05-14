@@ -12,7 +12,7 @@ function Emoji(props) {
         ? <button style={{ backgroundImage: `url(${CheckboxBG})` }} className="checkbox checkbox-on" onClick={ () => setIsChecked(!isChecked) }></button>
         : <button className="checkbox checkbox-off" onClick={ () => setIsChecked(!isChecked) }></button>
       }
-      <span contenteditable="true" className="checkbox-text doc-block">{props.text}</span>
+      <span contentEditable="true" className="checkbox-text doc-block">{props.text}</span>
     </div>
   );
 }
