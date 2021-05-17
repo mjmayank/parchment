@@ -6,7 +6,7 @@ function Header(props) {
   const [title, setTitle] = useState("Follower Notifs")
   return (
     <div className="header-container">
-      <div><img className="caret" src={caret} /></div>
+      <div><img className="caret" src={caret} alt="caret"/></div>
       <div className="title-container">
         <input value={title} onChange={ e => setTitle(e.value) } className="title" />
         <div>

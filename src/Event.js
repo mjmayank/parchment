@@ -4,7 +4,7 @@ import CalendarIcon from './calendar.png';
 function Event(props) {
   return (
     <div className="event-container">
-      <img src={ CalendarIcon } />
+      <img src={ CalendarIcon } alt="calendar" />
       <div className="event">{ props.text }</div>
       <a href="#" className="join-meeting-button">Join Video Call</a>
     </div>

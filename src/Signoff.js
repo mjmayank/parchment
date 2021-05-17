@@ -11,7 +11,7 @@ function Signoff(props) {
       <a name="signoff"/>
       <button className="Signoff" onClick={ () => { setSignoff(new Date()); setHasSignedOff(true); } }>
         <div className="signoff-name-container">
-          { hasSignedOff && <img src={check}/> }
+          { hasSignedOff && <img src={check} alt="check"/> }
           {
             signoffTime ?
               <span className="signoff-name">{ props.signerName }</span>

@@ -19,13 +19,13 @@ function Emoji(props) {
   ];
   let avatars = [];
   for (var i=0; i<count; i++) {
-    avatars.push(<span className="emoji-count"><img src={AVATAR_FILES[i]}/></span>)
+    avatars.push(<span className="emoji-count"><img src={AVATAR_FILES[i]} alt="avatar"/></span>)
   }
   return (
     <button className="Emoji" onClick={ () => setCount(count + 1) }>
       { count > 0
         ? <span className="emoji-icon">{props.emoji}</span>
-        : <img className="emoji-icon" src={AddReaction} />
+        : <img className="emoji-icon" src={AddReaction} alt="add-reaction" />
       }
       { avatars }
     </button>

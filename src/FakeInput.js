@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 function FakeInput(props) {
-  console.log('input', props);
   const [ isSlash, setIsSlash ] = useState(false);
 
   const updateDocument = value => {
@@ -10,7 +9,6 @@ function FakeInput(props) {
     } else {
       setIsSlash(false);
     }
-    console.log(value)
     props.updateDocument(value)
   }
 

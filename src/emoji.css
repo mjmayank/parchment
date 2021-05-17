@@ -19,23 +19,3 @@ img.emoji-icon {
 .emoji-count {
   margin-left: 4px;
 }
-
-.checkbox {
-  border: 1px solid #e6e6e6;
-  background-color: white;
-  border-radius: 4px;
-  cursor: pointer;
-  height: 16px;
-  width: 16px;
-}
-
-.checkbox-on {
-  background-size: cover;
-  border-color: #000;
-}
-
-.checkbox-text {
-  margin-left: 4px;
-  min-width: 4px;
-  display: inline-block;
-}
