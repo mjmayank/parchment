@@ -1,5 +1,5 @@
 .App {
-  
+  margin-bottom: 200px;
 }
 
 .doc-container {
@@ -74,4 +74,19 @@ button {
   padding: 8px;
   background-color: white;
   border: 1px solid #282c34;
+}
+
+.input-dropdown {
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+}
+
+.dropdown-item {
+  padding: 4px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #faf2a6;
+
 }

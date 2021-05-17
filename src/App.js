@@ -1,6 +1,7 @@
 import './App.css';
 import Header from './header.js';
 import ComponentPicker from './ComponentPicker';
+import FakeInput from './FakeInput';
 import { useState } from 'react';
 
 // const document_data = [
@@ -292,11 +293,11 @@ function App() {
             return <ComponentPicker line={line}/>
           })
         }
-        <input
+        <FakeInput
           value={ inputValue }
           className="fake-input"
-          onChange={ e => updateDocument(e.target.value) }
-          onKeyUp={ e => onEnterPressed(e.key) }
+          updateDocument={ value => updateDocument(value) }
+          onEnterPressed={ key => onEnterPressed(key) }
         />
       </div>
     </div>
