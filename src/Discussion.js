@@ -28,7 +28,7 @@ function Emoji(props) {
             <img src={ Avatar1 } />
             <div className="author-name">Mayank</div>
           </div>
-          <div contentEditable className=" doc-block reply-input">I think just wait a week, I bet they'll be over it really fast</div>
+          <div contentEditable suppressContentEditableWarning={true} className=" doc-block reply-input">I think just wait a week, I bet they'll be over it really fast</div>
         </div>
         <a href="#" className="reply-button">Reply</a>
       </div>

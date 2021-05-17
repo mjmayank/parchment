@@ -220,6 +220,7 @@ function App() {
       }]);
       setInputValue('')
     } else {
+      console.log(value);
       setInputValue(value)
     }
   }
