@@ -14,7 +14,7 @@ function FakeInput(props) {
 
   return (
     <div className="fake-input-container">
-      <input
+      <textarea
         value={ props.value }
         className="fake-input"
         onChange={ e => updateDocument(e.target.value) }
