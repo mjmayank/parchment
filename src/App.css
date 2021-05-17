@@ -1,5 +1,5 @@
 .App {
-  margin-bottom: 200px;
+  
 }
 
 .doc-container {
@@ -17,6 +17,10 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.fake-input {
+  margin-bottom: 200px;
 }
 
 .fake-input, .fake-input:focus {

@@ -29,8 +29,8 @@ function FakeInput(props) {
           <div className="dropdown-item" onClick={ () => updateDocument('/h2') }>/h2 (H2)</div>
           <div className="dropdown-item" onClick={ () => updateDocument('/emoji') }>/emoji (Emoji)</div>
           <div className="dropdown-item" onClick={ () => updateDocument('/discussion') }>/discussion (Discussion)</div>
-          <div className="dropdown-item" onClick={ () => updateDocument('/signoff') }>/signoff (Signoff)</div>
-          <div className="dropdown-item" onClick={ () => updateDocument('/request') }>/request (Request)</div>
+          <div className="dropdown-item" onClick={ () => updateDocument('/signoff') }>/signoff name (Signoff eg. /signoff Mayank Jain)</div>
+          <div className="dropdown-item" onClick={ () => updateDocument('/request') }>/request name (Request eg. /signoff Mayank Jain)</div>
           <div className="dropdown-item" onClick={ () => updateDocument('/check') }>/check (Checkbox)</div>
         </div>
       }
