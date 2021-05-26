@@ -6,10 +6,16 @@ function Signoff(props) {
   const [ signoffTime, setSignoff ] = useState(new Date());
   const [ hasSignedOff, setHasSignedOff ] = useState(false);
 
+  const confirmSignoff = async () => {
+    const response = await fetch(
+      `https://limitless-sierra-24357.herokuapp.com/send/review`
+    );
+  }
+
   return (
     <div>
       <a name="signoff"/>
-      <button className="Signoff" onClick={ () => { setSignoff(new Date()); setHasSignedOff(true); } }>
+      <button className="Signoff" onClick={ () => { confirmSignoff(); setSignoff(new Date()); setHasSignedOff(true); } }>
         <div className="signoff-name-container">
           { hasSignedOff && <img src={check} alt="check"/> }
           {

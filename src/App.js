@@ -4,6 +4,33 @@ import ComponentPicker from './ComponentPicker';
 import FakeInput from './FakeInput';
 import { useState } from 'react';
 
+export const ACCOUNTS = {
+  "vee@reddit.com" : {
+    email: "mjmayank@gmail.com",
+    name: "Vaibhav Sahgal",
+  },
+  "kd@reddit.com" : {
+    email: "mjmayank@gmail.com",
+    name: "KD Bhulani",
+  },
+  "yee@reddit.com" : {
+    email: "mjmayank@gmail.com",
+    name: "Yee Chen",
+  },
+  "arjunb023@gmail.com" : {
+    email: "arjunb023@gmail.com",
+    name: "Arjun Bhargava",
+  },
+  "cayley@reddit.com" : {
+    email: "mjmayank@gmail.com",
+    name: "Cayley Larimer",
+  },
+  "mjmayank@gmail.com" : {
+    email: "mjmayank@gmail.com",
+    name: "Mayank Jain",
+  }
+}
+
 // const document_data = [
 //   { 
 //     text: "[Spec] Follower Notifs",
@@ -224,7 +251,16 @@ function App() {
     }
   }
 
+  const removeItem = index => {
+    document.splice(index, 1);
+    setDocument([...document]);
+  }
+
   const onEnterPressed = key => {
+    if (inputValue === '') {
+      if (key === 'Backspace') {
+      }
+    }
     if (key === 'Enter') {
       if (inputValue.includes('/request')) {
         setDocument([
@@ -235,16 +271,24 @@ function App() {
         ])
         setInputValue('')
       }
-      if (inputValue.includes('/signoff')) {
+      else if (inputValue.includes('/signoff')) {
+        const inputEmail = inputValue.substring(inputValue.indexOf("/signoff ") + "/signoff ".length, inputValue.length-1);
+        console.log(inputEmail)
+        console.log(ACCOUNTS[inputEmail])
+        const email = ACCOUNTS[inputEmail].email;
+        const name = ACCOUNTS[inputEmail].name;
         setDocument([
           ...document, {
-            text: inputValue.substring(inputValue.indexOf("/signoff ") + "/signoff ".length),
+            text: name,
             type: "signoff"
           }
         ])
         setInputValue('')
+        fetch(
+          `https://limitless-sierra-24357.herokuapp.com/send/review?email=${email}`
+        )
       }
-      if (inputValue.includes('/discussion')) {
+      else if (inputValue.includes('/discussion')) {
         setDocument([
           ...document, {
             text: inputValue.substring(inputValue.indexOf("/discussion ") + "/discussion ".length),
@@ -253,7 +297,7 @@ function App() {
         ])
         setInputValue('')
       }
-      if (inputValue.includes('/emoji')) {
+      else if (inputValue.includes('/emoji')) {
         setDocument([
           ...document, {
             text: inputValue.substring(inputValue.indexOf("/emoji ") + "/emoji ".length) || "👍",
@@ -263,7 +307,7 @@ function App() {
         ])
         setInputValue('')
       }
-      if (inputValue.includes('/h1')) {
+      else if (inputValue.includes('/h1')) {
         setDocument([
           ...document, {
             text: inputValue.substring(inputValue.indexOf("/h1 ") + "/h1 ".length),
@@ -272,11 +316,29 @@ function App() {
         ])
         setInputValue('')
       }
-      if (inputValue.includes('/h2')) {
+      else if (inputValue.includes('/h2')) {
         setDocument([
           ...document, {
             text: inputValue.substring(inputValue.indexOf("/h2 ") + "/h2 ".length),
             type: "h2",
+          }
+        ])
+        setInputValue('')
+      }
+      else if (inputValue.includes('/p')) {
+        setDocument([
+          ...document, {
+            text: inputValue.substring(inputValue.indexOf("/p ") + "/p ".length),
+            type: "p",
+          }
+        ])
+        setInputValue('')
+      }
+      else {
+        setDocument([
+          ...document, {
+            text: inputValue,
+            type: "p",
           }
         ])
         setInputValue('')
@@ -289,8 +351,8 @@ function App() {
       <Header/>
       <div className="doc-container">
         {
-          document.map(line => {
-            return <ComponentPicker line={line}/>
+          document.map((line, index) => {
+            return <ComponentPicker line={line} removeItem={() => removeItem(index)}/>
           })
         }
         <FakeInput

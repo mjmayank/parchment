@@ -9,8 +9,25 @@ import Agenda from './Agenda.js';
 function ComponentPicker(props) {
   const { line } = props;
 
+  const onKeyUp = key => {
+    if (key === 'Backspace') {
+      props.removeItem();
+    }
+  }
+
   if(line.type === 'h1') {
-    return (<div><h1 className="doc-block" contentEditable={true} suppressContentEditableWarning={true} key={line.text}>{ line.text }</h1></div>)
+    return (
+      <div>
+        <h1
+          className="doc-block"
+          contentEditable={true}
+          suppressContentEditableWarning={true}
+          key={line.text}
+          onKeyUp={ e => onKeyUp(e.key) }
+          dangerouslySetInnerHTML={ {__html: line.text } }
+        >
+        </h1>
+      </div>)
   } else if(line.type === 'h2') {
     return (<div><h2 className="doc-block" contentEditable={true} suppressContentEditableWarning={true} key={line.text}>{ line.text }</h2></div>)
   } else if (line.type === 'emoji') {

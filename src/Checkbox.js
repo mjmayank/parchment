@@ -3,12 +3,17 @@ import CheckboxBG from './checkbox-bg.png';
 import { useState } from 'react';
 import debounce from 'lodash.debounce'
 
-function Emoji(props) {
+function Checkbox(props) {
   const [ isChecked, setIsChecked ] = useState(false);
   const [ isEmpty, setIsEmpty ] = useState(true);
   const [ isSynced, setIsSynced ] = useState(false);
 
+  const waitForInput = () => {
+    setIsSynced(true);
+    setTimeout(() => setIsSynced(false), 5000)
+  }
 
+  const debouncedInput = debounce(waitForInput, 1000)
 
   return (
     <div>
@@ -21,10 +26,7 @@ function Emoji(props) {
         contentEditable="true"
         onInput={ () => {
           setIsEmpty(false);
-          debounce(() => {
-            setIsSynced(true);
-            setTimeout(() => setIsSynced(false), 5000)
-          }, 500)()
+          debouncedInput();
         } }
         suppressContentEditableWarning={true}
         className={ `checkbox-text doc-block ${ isEmpty ? 'empty' : ''}` }
@@ -38,4 +40,4 @@ function Emoji(props) {
   );
 }
 
-export default Emoji;
+export default Checkbox;
