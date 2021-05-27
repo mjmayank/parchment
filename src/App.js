@@ -4,6 +4,11 @@ import ComponentPicker from './ComponentPicker';
 import FakeInput from './FakeInput';
 import { useEffect, useState } from 'react';
 
+export const rootDomain =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000/'
+    : 'https://limitless-sierra-24357.herokuapp.com/'
+
 export const ACCOUNTS = {
   "vee@reddit.com" : {
     email: "mjmayank@gmail.com",

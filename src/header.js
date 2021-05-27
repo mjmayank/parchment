@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './header.css'
 import caret from './left-caret.png'
+import { rootDomain } from './App';
 
 function Header(props) {
   const syncDocument = () => {
@@ -8,7 +9,7 @@ function Header(props) {
       idToken: window.gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
       documentData: props.documentData,
     }
-    fetch(`http://localhost:5000/document/create`, {
+    fetch(`${rootDomain}document/create`, {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
