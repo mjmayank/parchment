@@ -3,6 +3,21 @@ import './header.css'
 import caret from './left-caret.png'
 
 function Header(props) {
+  const syncDocument = () => {
+    var body = {
+      idToken: window.gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
+      documentData: props.documentData,
+    }
+    fetch(`http://localhost:5000/document/create`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      }
+    })
+  }
+
   const [title, setTitle] = useState("Follower Notifs")
   return (
     <div className="header-container">
@@ -24,7 +39,10 @@ function Header(props) {
             Jump to signoff
           </a>
         </div>
-        <div className="invite-button">
+        <div
+          className="invite-button"
+          onClick={ syncDocument }
+        >
           Invite
         </div>
       </div>

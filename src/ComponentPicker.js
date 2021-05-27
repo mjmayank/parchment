@@ -31,7 +31,7 @@ function ComponentPicker(props) {
   } else if(line.type === 'h2') {
     return (<div><h2 className="doc-block" contentEditable={true} suppressContentEditableWarning={true} key={line.text}>{ line.text }</h2></div>)
   } else if (line.type === 'emoji') {
-    return (<Emoji emoji={line.text} count={line.data}/>)
+    return (<Emoji emoji={line.text} count={line.data.length}/>)
   } else if (line.type === "check") {
     return (<Check text={line.text}/>)
   } else if (line.type === "signoff") {

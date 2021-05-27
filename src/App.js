@@ -2,7 +2,7 @@ import './App.css';
 import Header from './header.js';
 import ComponentPicker from './ComponentPicker';
 import FakeInput from './FakeInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const ACCOUNTS = {
   "vee@reddit.com" : {
@@ -120,23 +120,23 @@ const document_data = [
     text: "Agenda",
     type: "h2",
   },
-  {
-    type: 'agenda',
-    data: [
-      {
-        text: "Roadmap Study Hall - 15 minutes",
-        type: "p",
-      },
-      {
-        text: "Roadmap Discussion - 20 minutes",
-        type: "p",
-      },
-      {
-        text: "Backlog Review - 20 minutes",
-        type: "p",
-      }
-    ]
-  },
+  // {
+  //   type: 'agenda',
+  //   data: [
+  //     {
+  //       text: "Roadmap Study Hall - 15 minutes",
+  //       type: "p",
+  //     },
+  //     {
+  //       text: "Roadmap Discussion - 20 minutes",
+  //       type: "p",
+  //     },
+  //     {
+  //       text: "Backlog Review - 20 minutes",
+  //       type: "p",
+  //     }
+  //   ]
+  // },
   {
     text: "Follow Ups",
     type: "h2",
@@ -160,7 +160,7 @@ const document_data = [
   {
     text: "👍",
     type: 'emoji',
-    data: 0,
+    data: [],
   },
   {
     text: "Core Growth",
@@ -173,7 +173,7 @@ const document_data = [
   {
     text: "👍",
     type: 'emoji',
-    data: 0,
+    data: [],
   },
   {
     text: "International",
@@ -186,7 +186,7 @@ const document_data = [
   {
     text: "👍",
     type: 'emoji',
-    data: 0,
+    data: [],
   },
   {
     text: "SEO",
@@ -199,7 +199,7 @@ const document_data = [
   {
     text: "👍",
     type: 'emoji',
-    data: 0,
+    data: [],
   },
   {
     text: "Key Discussion",
@@ -346,9 +346,46 @@ function App() {
     }
   }
 
+  const gapi = window.gapi;
+
+  // Client ID and API key from the Developer Console
+  var CLIENT_ID = '73937624438-b70smv6ui0j29m29akdjv3vg36oh0htf.apps.googleusercontent.com'
+  var API_KEY = 'AIzaSyDttxQZEswvFpB56MN7J7dbxMqzQvi2Oxk';
+
+  var YOUR_DOCUMENT_ID = '1M3erMHjZqOhPhs_SnrceyZK4KqqBarFaxhFlQ0vdKGo';
+  // Array of API discovery doc URLs for APIs used by the quickstart
+  var DISCOVERY_DOCS = ['https://docs.googleapis.com/$discovery/rest?version=v1'];
+
+  // Authorization scopes required by the API; multiple scopes can be
+  // included, separated by spaces.
+  var SCOPES = "https://www.googleapis.com/auth/documents";
+  /**
+   *  On load, called to load the auth2 library and API client library.
+   */
+  function handleClientLoad() {
+    gapi.load('client:auth2', initClient);
+  }
+
+  /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+  function initClient() {
+    gapi.client.init({
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      discoveryDocs: DISCOVERY_DOCS,
+      scope: SCOPES
+    }).then(function() {
+      gapi.auth2.getAuthInstance().signIn();
+    });
+  }
+
+  useEffect(handleClientLoad, []);
+
   return (
     <div className="App">
-      <Header/>
+      <Header documentData={ document }/>
       <div className="doc-container">
         {
           document.map((line, index) => {
