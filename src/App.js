@@ -264,6 +264,8 @@ function App() {
   const onEnterPressed = key => {
     if (inputValue === '') {
       if (key === 'Backspace') {
+        document.pop();
+        setDocument([...document])
       }
     }
     if (key === 'Enter') {
