@@ -243,6 +243,7 @@ const document_data = [
 function App() {
   const [document, setDocument] = useState(document_data);
   const [inputValue, setInputValue] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   const updateDocument = value => {
     if (value === '/check') {
@@ -292,7 +293,7 @@ function App() {
         ])
         setInputValue('')
         fetch(
-          `https://limitless-sierra-24357.herokuapp.com/send/review?email=${email}`
+          `${rootDomain}send/review?email=${email}`
         )
       }
       else if (inputValue.includes('/discussion')) {
@@ -384,7 +385,21 @@ function App() {
       discoveryDocs: DISCOVERY_DOCS,
       scope: SCOPES
     }).then(function() {
-      gapi.auth2.getAuthInstance().signIn();
+      if(!gapi.auth2.isSignedIn.get()){
+        gapi.auth2.getAuthInstance().signIn();
+        fetch(`${rootDomain}checkRegistration`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          }
+        }).then(response => {
+          if (response.ok) {
+
+          }
+        })
+      }
     });
   }
 

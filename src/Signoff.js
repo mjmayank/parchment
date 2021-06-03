@@ -1,6 +1,7 @@
 import check from './check.png';
 import './signoff.css';
 import { useState } from 'react';
+import { rootDomain } from 'App';
 
 function Signoff(props) {
   const [ signoffTime, setSignoff ] = useState(new Date());
@@ -8,7 +9,7 @@ function Signoff(props) {
 
   const confirmSignoff = async () => {
     const response = await fetch(
-      `https://limitless-sierra-24357.herokuapp.com/send/review`
+      `${rootDomain}send/review`
     );
   }
 
