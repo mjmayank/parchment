@@ -36,6 +36,17 @@ export const ACCOUNTS = {
   }
 }
 
+// Client ID and API key from the Developer Console
+var CLIENT_ID = '73937624438-b70smv6ui0j29m29akdjv3vg36oh0htf.apps.googleusercontent.com'
+var API_KEY = 'AIzaSyDttxQZEswvFpB56MN7J7dbxMqzQvi2Oxk';
+
+// Array of API discovery doc URLs for APIs used by the quickstart
+var DISCOVERY_DOCS = ['https://docs.googleapis.com/$discovery/rest?version=v1'];
+
+// Authorization scopes required by the API; multiple scopes can be
+// included, separated by spaces.
+var SCOPES = "https://www.googleapis.com/auth/documents";
+
 // const document_data = [
 //   { 
 //     text: "[Spec] Follower Notifs",
@@ -243,7 +254,14 @@ const document_data = [
 function App() {
   const [document, setDocument] = useState(document_data);
   const [inputValue, setInputValue] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [isBackendAuthed, setIsBackendAuthed] = useState(null);
+  const [documentId, setDocumentId] = useState('');
+
+  useEffect(() => {
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    setDocumentId(params.get('docId'));
+  }, [])
 
   const updateDocument = value => {
     if (value === '/check') {
@@ -356,17 +374,6 @@ function App() {
 
   const gapi = window.gapi;
 
-  // Client ID and API key from the Developer Console
-  var CLIENT_ID = '73937624438-b70smv6ui0j29m29akdjv3vg36oh0htf.apps.googleusercontent.com'
-  var API_KEY = 'AIzaSyDttxQZEswvFpB56MN7J7dbxMqzQvi2Oxk';
-
-  var YOUR_DOCUMENT_ID = '1M3erMHjZqOhPhs_SnrceyZK4KqqBarFaxhFlQ0vdKGo';
-  // Array of API discovery doc URLs for APIs used by the quickstart
-  var DISCOVERY_DOCS = ['https://docs.googleapis.com/$discovery/rest?version=v1'];
-
-  // Authorization scopes required by the API; multiple scopes can be
-  // included, separated by spaces.
-  var SCOPES = "https://www.googleapis.com/auth/documents";
   /**
    *  On load, called to load the auth2 library and API client library.
    */
@@ -378,25 +385,55 @@ function App() {
        *  Initializes the API client library and sets up sign-in state
        *  listeners.
        */
-  function initClient() {
+  async function initClient() {
+    var auth2; // The Sign-In object.
     gapi.client.init({
       apiKey: API_KEY,
       clientId: CLIENT_ID,
       discoveryDocs: DISCOVERY_DOCS,
       scope: SCOPES
     }).then(function() {
-      if(!gapi.auth2.isSignedIn.get()){
+      console.log('initialized gapi')
+      gapi.auth2.getAuthInstance().isSignedIn.listen((isSignIn) => {
+        if (isSignIn) {
+          var body = {
+            idToken: window.gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
+          }
+          fetch(`${rootDomain}checkRegistration`, {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(response => {
+            if (response.ok) {
+              setIsBackendAuthed(true)
+            } else {
+              setIsBackendAuthed(false)
+              // window.location.replace(`${rootDomain}/signin`);
+            }
+          })
+        }
+      })
+
+      if(!gapi.auth2.getAuthInstance().isSignedIn.get()){
         gapi.auth2.getAuthInstance().signIn();
+      } else {
+        var body = {
+          idToken: window.gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
+        }
         fetch(`${rootDomain}checkRegistration`, {
           method: 'POST',
           body: JSON.stringify(body),
           headers: {
             'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
           }
         }).then(response => {
           if (response.ok) {
-
+            setIsBackendAuthed(true)
+          } else {
+            setIsBackendAuthed(false)
+            // window.location.replace(`${rootDomain}/signin`);
           }
         })
       }
@@ -407,7 +444,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header documentData={ document }/>
+      <Header documentData={ document } isBackendAuthed={isBackendAuthed}/>
       <div className="doc-container">
         {
           document.map((line, index) => {

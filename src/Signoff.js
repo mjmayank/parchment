@@ -1,7 +1,7 @@
 import check from './check.png';
 import './signoff.css';
 import { useState } from 'react';
-import { rootDomain } from 'App';
+import { rootDomain } from './App';
 
 function Signoff(props) {
   const [ signoffTime, setSignoff ] = useState(new Date());
