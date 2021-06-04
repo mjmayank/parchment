@@ -9,7 +9,7 @@ function Signoff(props) {
 
   const confirmSignoff = async () => {
     const response = await fetch(
-      `${rootDomain}send/review`
+      `${rootDomain}/send/review`
     );
   }
 

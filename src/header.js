@@ -8,8 +8,9 @@ function Header(props) {
     var body = {
       idToken: window.gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
       documentData: props.documentData,
+      documentId: props.documentId,
     }
-    fetch(`${rootDomain}document/create`, {
+    fetch(`${rootDomain}/document/create`, {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
