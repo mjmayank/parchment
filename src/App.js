@@ -268,6 +268,10 @@ function App() {
     }
   }
 
+  const syncDocument = document => {
+    setDocument(document);
+  }
+
   const removeItem = index => {
     document.splice(index, 1);
     setDocument([...document]);
@@ -456,7 +460,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header documentData={ document } documentId={documentId}/>
+      <Header documentData={ document } documentId={documentId} syncDocument={syncDocument} />
       <div className="doc-container">
         {
           document.map((line, index) => {

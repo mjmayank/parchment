@@ -4,7 +4,7 @@ import caret from './left-caret.png'
 import { rootDomain } from './App';
 
 function Header(props) {
-  const syncDocument = () => {
+  const syncToDocument = () => {
     var body = {
       idToken: window.gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
       documentData: props.documentData,
@@ -16,6 +16,24 @@ function Header(props) {
       headers: {
         'Content-Type': 'application/json'
       }
+    })
+  }
+
+  const syncFromDocument = () => {
+    var body = {
+      idToken: window.gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
+      documentId: props.documentId,
+    }
+    fetch(`${rootDomain}/document/sync`, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(response => {
+      return response.json()
+    }).then(data => {
+      props.syncDocument(data);
     })
   }
 
@@ -42,9 +60,15 @@ function Header(props) {
         </div>
         <div
           className="invite-button"
-          onClick={ syncDocument }
+          onClick={ syncFromDocument }
         >
-          Invite
+          Sync from Google Docs
+        </div>
+        <div
+          className="invite-button"
+          onClick={ syncToDocument }
+        >
+          Sync to Google Docs
         </div>
       </div>
     </div>
