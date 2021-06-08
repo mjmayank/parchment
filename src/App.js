@@ -255,6 +255,7 @@ function App() {
   const [document, setDocument] = useState(document_data);
   const [inputValue, setInputValue] = useState('');
   const [documentId, setDocumentId] = useState('');
+  const [title, setTitle] = useState('Growth Roadmap Review');
 
   const updateDocument = value => {
     if (value === '/check') {
@@ -357,6 +358,22 @@ function App() {
         ])
         setInputValue('')
       }
+      else if (inputValue.includes('/github')) {
+        const repo = inputValue.substring(inputValue.indexOf("/github ") + "/github ".length)
+        const body = {
+          idToken: window.gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
+          documentId: documentId,
+        }
+        fetch(`${rootDomain}/github/read?repo=${repo}`, {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        
+        setInputValue('')
+      }
       else {
         setDocument([
           ...document, {
@@ -383,7 +400,14 @@ function App() {
        *  listeners.
        */
   async function initClient() {
-    var auth2; // The Sign-In object.
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    if (params.get('new') === 'true') {
+      setDocument([]);
+    } else if (params.get('docId')) {
+      setDocumentId(params.get('docId'));
+    }
+
     gapi.client.init({
       apiKey: API_KEY,
       clientId: CLIENT_ID,
@@ -425,8 +449,6 @@ function App() {
           }
         }).then(response => {
           if (response.ok) {
-            let search = window.location.search;
-            let params = new URLSearchParams(search);
             if (params.get('new') === 'true') {
               setDocument([]);
               var body = {
@@ -445,8 +467,6 @@ function App() {
                 console.log(docId);
                 setDocumentId(docId);
               })
-            } else if (params.get('docId')) {
-              setDocumentId(params.get('docId'));
             }
           } else {
             window.open(`${rootDomain}/signin`);
@@ -460,7 +480,13 @@ function App() {
 
   return (
     <div className="App">
-      <Header documentData={ document } documentId={documentId} syncDocument={syncDocument} />
+      <Header
+        documentData={ document }
+        documentId={ documentId }
+        setTitle={ setTitle }
+        title={ title }
+          syncDocument={ syncDocument }
+      />
       <div className="doc-container">
         {
           document.map((line, index) => {

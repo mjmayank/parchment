@@ -9,6 +9,7 @@ function Header(props) {
       idToken: window.gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
       documentData: props.documentData,
       documentId: props.documentId,
+      title: props.title,
     }
     fetch(`${rootDomain}/document/create`, {
       method: 'POST',
@@ -37,12 +38,15 @@ function Header(props) {
     })
   }
 
-  const [title, setTitle] = useState("Follower Notifs")
   return (
     <div className="header-container">
       <div><img className="caret" src={caret} alt="caret"/></div>
       <div className="title-container">
-        <input value={title} onChange={ e => setTitle(e.value) } className="title" />
+        <input
+          value={ props.title }
+          onChange={ e => props.setTitle(e.value) }
+          className="title"
+        />
         <div>
           <div className="tag">Specs</div>
           <div className="tag">Growth</div>
