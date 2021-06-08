@@ -449,6 +449,7 @@ function App() {
           }
         }).then(response => {
           if (response.ok) {
+            console.log(documentId);
             if (params.get('new') === 'true') {
               setDocument([]);
               var body = {
@@ -466,6 +467,22 @@ function App() {
                 const docId = data['documentId'];
                 console.log(docId);
                 setDocumentId(docId);
+              })
+            } else if (params.get('docId')) {
+              var body = {
+                idToken: window.gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
+                documentId: params.get('docId'),
+              }
+              fetch(`${rootDomain}/document/sync`, {
+                method: 'POST',
+                body: JSON.stringify(body),
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }).then(response => {
+                return response.json()
+              }).then(data => {
+                syncDocument(data);
               })
             }
           } else {
@@ -485,7 +502,6 @@ function App() {
         documentId={ documentId }
         setTitle={ setTitle }
         title={ title }
-          syncDocument={ syncDocument }
       />
       <div className="doc-container">
         {

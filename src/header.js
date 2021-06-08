@@ -20,24 +20,6 @@ function Header(props) {
     })
   }
 
-  const syncFromDocument = () => {
-    var body = {
-      idToken: window.gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
-      documentId: props.documentId,
-    }
-    fetch(`${rootDomain}/document/sync`, {
-      method: 'POST',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(response => {
-      return response.json()
-    }).then(data => {
-      props.syncDocument(data);
-    })
-  }
-
   return (
     <div className="header-container">
       <div><img className="caret" src={caret} alt="caret"/></div>
@@ -64,15 +46,9 @@ function Header(props) {
         </div>
         <div
           className="invite-button"
-          onClick={ syncFromDocument }
-        >
-          Sync from Google Docs
-        </div>
-        <div
-          className="invite-button"
           onClick={ syncToDocument }
         >
-          Sync to Google Docs
+          Sync
         </div>
       </div>
     </div>
