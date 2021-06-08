@@ -254,7 +254,8 @@ function App() {
               }).then(response => {
                 return response.json()
               }).then(data => {
-                syncDocument(data);
+                setTitle(data.title);
+                syncDocument(data.body);
               })
             }
           } else {
