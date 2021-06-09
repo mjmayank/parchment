@@ -239,6 +239,7 @@ function App() {
                 const docId = data['documentId'];
                 console.log(docId);
                 setDocumentId(docId);
+                window.history.replaceState(null, null, `?docId=${docId}`);
               })
             } else if (params.get('docId')) {
               var body = {
