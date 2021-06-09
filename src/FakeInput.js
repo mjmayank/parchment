@@ -1,5 +1,16 @@
 import { useState } from 'react';
 
+const commands = [
+  ['h1', '(H1)'],
+  ['h2', '(H1)'],
+  ['emoji', '(emoji)'],
+  ['discussion', '(Discussion))'],
+  ['signoff', '(email (Signoff eg. /signoff mjmayank@gmail.com))'],
+  ['request', '(name (Request eg. /signoff Mayank Jain))'],
+  ['check', '(Checkbox)'],
+  ['github', '(eg. /github https://www.github.com/reddit/design-docs)'],
+]
+
 function FakeInput(props) {
   const [ isSlash, setIsSlash ] = useState(false);
 
@@ -23,13 +34,11 @@ function FakeInput(props) {
       {
         isSlash &&
         <div className="input-dropdown">
-          <div className="dropdown-item" onClick={ () => updateDocument('/h1') }>/h1 (H1)</div>
-          <div className="dropdown-item" onClick={ () => updateDocument('/h2') }>/h2 (H2)</div>
-          <div className="dropdown-item" onClick={ () => updateDocument('/emoji') }>/emoji (Emoji)</div>
-          <div className="dropdown-item" onClick={ () => updateDocument('/discussion') }>/discussion (Discussion)</div>
-          <div className="dropdown-item" onClick={ () => updateDocument('/signoff') }>/signoff name (Signoff eg. /signoff Mayank Jain)</div>
-          <div className="dropdown-item" onClick={ () => updateDocument('/request') }>/request name (Request eg. /signoff Mayank Jain)</div>
-          <div className="dropdown-item" onClick={ () => updateDocument('/check') }>/check (Checkbox)</div>
+          {
+            commands.map(
+              command => <div className="dropdown-item" onClick={ () => updateDocument('/'+command[0]) }>/{`${command[0]} ${command[1]}`}</div>
+            )
+          }
         </div>
       }
     </div>

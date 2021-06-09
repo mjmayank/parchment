@@ -28,6 +28,7 @@ function Header(props) {
           value={ props.title }
           onChange={ e => props.setTitle(e.target.value) }
           className="title"
+          placeholder={ 'Untitled' }
         />
         <div>
           <div className="tag">Specs</div>

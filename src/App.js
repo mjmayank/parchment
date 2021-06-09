@@ -27,7 +27,7 @@ function App() {
   const [document, setDocument] = useState(document_data);
   const [inputValue, setInputValue] = useState('');
   const [documentId, setDocumentId] = useState('');
-  const [title, setTitle] = useState('Growth Roadmap Review');
+  const [title, setTitle] = useState('');
 
   const updateDocument = value => {
     if (value === '/check') {
