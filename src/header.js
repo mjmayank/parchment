@@ -26,7 +26,7 @@ function Header(props) {
       <div className="title-container">
         <input
           value={ props.title }
-          onChange={ e => props.setTitle(e.value) }
+          onChange={ e => props.setTitle(e.target.value) }
           className="title"
         />
         <div>
