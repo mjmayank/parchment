@@ -20,8 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "add-domain": "echo \"customdomain.com\" > build/CNAME",
-    "deploy": "npm run build && npm run add-domain && gh-pages -d build"
+    "deploy": "npm run build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
