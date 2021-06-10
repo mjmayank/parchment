@@ -11,7 +11,7 @@ function Emoji(props) {
         isChecked
         ? <input autoFocus className="fake-input"/>
         : <button className="input-requested" onClick={ () => setIsChecked(!isChecked) }>
-            Input requested from {props.from} <img className="email-icon" src={ EmailIcon } />
+            Input requested from {props.from} <img className="email-icon" src={ EmailIcon } alt="email" />
           </button>
       }
     </div>

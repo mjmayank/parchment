@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './header.css'
 import caret from './left-caret.png'
 import { rootDomain } from './App';
@@ -37,14 +36,6 @@ function Header(props) {
         </div>
       </div>
       <div className="right-side">
-        <div className="signoff-info">
-          <div className="signoff-date">
-            Sign off requested by 5/12/2021
-          </div>
-          <a href="#signoff" className="jump-to-signoff">
-            Jump to signoff
-          </a>
-        </div>
         <div
           className="invite-button"
           onClick={ syncToDocument }

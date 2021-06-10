@@ -8,14 +8,13 @@ function Signoff(props) {
   const [ hasSignedOff, setHasSignedOff ] = useState(false);
 
   const confirmSignoff = async () => {
-    const response = await fetch(
+    await fetch(
       `${rootDomain}/send/review`
     );
   }
 
   return (
     <div>
-      <a name="signoff"/>
       <button className="Signoff" onClick={ () => { confirmSignoff(); setSignoff(new Date()); setHasSignedOff(true); } }>
         <div className="signoff-name-container">
           { hasSignedOff && <img src={check} alt="check"/> }

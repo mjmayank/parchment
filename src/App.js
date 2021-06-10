@@ -56,8 +56,11 @@ function App() {
   const onEnterPressed = key => {
     if (inputValue === '') {
       if (key === 'Backspace') {
-        document.pop();
+        const lastItem = document.pop();
         setDocument([...document])
+        if (lastItem) {
+          setInputValue(lastItem.text);
+        }
       }
     }
     if (key === 'Enter') {
@@ -132,17 +135,25 @@ function App() {
         setInputValue('')
       }
       else if (inputValue.includes('/github')) {
-        const repo = inputValue.substring(inputValue.indexOf("/github ") + "/github ".length)
+        const repoUrl = inputValue.substring(inputValue.indexOf("/github ") + "/github ".length)
         const body = {
           idToken: window.gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
           documentId: documentId,
+          repo: repoUrl.trim(),
         }
-        fetch(`${rootDomain}/github/read?repo=${repo}`, {
+        fetch(`${rootDomain}/github/read`, {
           method: 'POST',
           body: JSON.stringify(body),
           headers: {
             'Content-Type': 'application/json'
           }
+        }).then(response => {
+          return response.json()
+        }).then(data => {
+          setDocument([
+            ...document,
+            ...data.data,
+          ]);
         })
         
         setInputValue('')
@@ -150,7 +161,7 @@ function App() {
       else {
         setDocument([
           ...document, {
-            text: inputValue,
+            text: inputValue.trim(),
             type: "p",
           }
         ])
@@ -231,7 +242,7 @@ function App() {
           if (response.ok) {
             if (params.get('new') === 'true') {
               setDocument([]);
-              var body = {
+              body = {
                 idToken: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
               }
               fetch(`${rootDomain}/createNew`, {
@@ -248,7 +259,7 @@ function App() {
                 window.history.replaceState(null, null, `?docId=${docId}`);
               })
             } else if (params.get('docId')) {
-              var body = {
+              body = {
                 idToken: window.gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,
                 documentId: params.get('docId'),
               }
@@ -304,10 +315,10 @@ function App() {
       </div>
       {
         !isSignedIn &&
-          <div style={{ 'background-image': `url(${modalBG})` }} className="login-footer">
+          <div style={{ 'backgroundImage': `url(${modalBG})` }} className="login-footer">
             <div className="modal-title">Welcome to Speck!</div>
             <div className="modal-description">Sign in to get started</div>
-            <button style={{ 'background-image': `url(${signInWithGoogleButton})` }} onClick={ onLoginButtonPressed }></button>
+            <button style={{ 'backgroundImage': `url(${signInWithGoogleButton})` }} onClick={ onLoginButtonPressed }></button>
           </div>
       }
     </div>

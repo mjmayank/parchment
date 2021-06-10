@@ -41,25 +41,12 @@
   margin-left: auto;
 }
 
-.signoff-info {
-  font-size: 12px;
-  margin-right: 8px;
-  text-align: right;
-}
-
-.signoff-date {
-  font-weight: 600;
-}
-
-.jump-to-signoff {
-  color: rgb(31, 31, 211);
-}
-
 .invite-button {
   background-color: rgb(31, 31, 211);
   border-radius: 8px;
   box-sizing: border-box;
   color: white;
+  cursor: pointer;
   display: flex;
   height: 32px;
   padding: 8px 16px;
