@@ -10,7 +10,8 @@ function ComponentPicker(props) {
   const { line } = props;
 
   const onKeyUp = key => {
-    if (key === 'Backspace') {
+    console.log(line.text);
+    if (key === 'Backspace' && line.text === '') {
       props.removeItem();
     }
   }
@@ -44,9 +45,18 @@ function ComponentPicker(props) {
     return (<Event text={line.text}/>)
   } else if (line.type === 'agenda') {
     return (<Agenda data={line.data} text={line.text}/>)
-  }else {
+  } else if (line.type === 'link') {
+    return (<a href={ line.data }>{line.text}</a>)
+  } else {
     return (
-      <p className="doc-block" contentEditable={true} suppressContentEditableWarning={true} key={line.text}>{ line.text }</p>
+      <p
+        className="doc-block"
+        contentEditable={true}
+        suppressContentEditableWarning={true}
+        key={line.text}
+        onInput={ e => { console.log(e); props.updateText(e.target.innerText); } }
+        dangerouslySetInnerHTML={ { __html: line.text } }
+      ></p>
     )
   }
 }
